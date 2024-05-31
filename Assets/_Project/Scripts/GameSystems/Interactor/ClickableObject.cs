@@ -2,6 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
+[RequireComponent(typeof(AudioSource))]
 public class ClickableObject : MonoBehaviour, IDamageable, INameable
 {
     [SerializeField] private ClickableObjectData _data;
@@ -14,6 +15,7 @@ public class ClickableObject : MonoBehaviour, IDamageable, INameable
         {
             _health = value;
 
+            _audioManager.PlayWithRandomPitch(_audioManager.HitSound, 1, 3, _audioSource);
             AnimateDamage();
 
             if (_health <= 0)
@@ -21,25 +23,30 @@ public class ClickableObject : MonoBehaviour, IDamageable, INameable
         }
     }
 
-    private InventoryModel _inventoryService;
+    private InventoryModel _inventory;
     private int _health;
+
+    private AudioSource _audioSource;
+    private AudioManager _audioManager;
 
     #region Zenject init
     [Inject]
-    private void Inititalize(InventoryModel inventoryService)
+    private void Inititalize(InventoryModel inventory, AudioManager audioManager)
     {
-        _inventoryService = inventoryService;
+        _inventory = inventory;
+        _audioManager = audioManager;
     }
     #endregion
 
     private void Start()
     {
         _health = _data.MaxHealth;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Death()
     {
-        _inventoryService.ReceiveItem(_data.Drop, _data.DropCount);
+        _inventory.ReceiveItem(_data.Drop, _data.DropCount);
         Destroy(gameObject);
     }
 
