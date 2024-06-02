@@ -5,7 +5,7 @@ using Zenject;
 public class Interactor : MonoBehaviour
 {
     private DamageInteractor _damageInteractor;
-    private ShowTextInteractor _viewTextInteractor;
+    private ShowTextInteractor _showTextInteractor;
     private CraftingInteractor _craftingInteractor;
     private List<IInteractorSubsystem> _interactorSubsystems = new();
     private int _rayDistance = 3;
@@ -19,7 +19,7 @@ public class Interactor : MonoBehaviour
         CraftingInteractor craftingInteractor)
     {
         _damageInteractor = damageInteractor;
-        _viewTextInteractor = viewTextInteractor;
+        _showTextInteractor = viewTextInteractor;
         _craftingInteractor = craftingInteractor;
     }
     #endregion
@@ -40,7 +40,7 @@ public class Interactor : MonoBehaviour
         }
 
         else
-            _viewTextInteractor.TryVanishText();
+            _showTextInteractor.TryVanishText();
     }
 
     private void Awake()
@@ -51,7 +51,7 @@ public class Interactor : MonoBehaviour
     private void InitializeSubsystems()
     {
         _interactorSubsystems.Add(_damageInteractor);
-        _interactorSubsystems.Add(_viewTextInteractor);
+        _interactorSubsystems.Add(_showTextInteractor);
         _interactorSubsystems.Add(_craftingInteractor);
     }
 }

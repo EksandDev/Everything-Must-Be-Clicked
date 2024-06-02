@@ -7,7 +7,7 @@ public class CraftingModel
     private InventoryModel _inventory;
     private CraftingView _craftingView;
     private Message _message;
-    private DiContainer _container;
+    private DiContainer _diContainer;
     private List<CraftingSlot> _slots = new();
 
     #region Zenject init
@@ -18,7 +18,7 @@ public class CraftingModel
         _inventory = inventory;
         _craftingView = craftingView;
         _message = message;
-        _container = container;
+        _diContainer = container;
     }
     #endregion
 
@@ -58,13 +58,9 @@ public class CraftingModel
 
     private void CreateSlot(CraftData craftData)
     {
-        GameObject newSlot =
-            _container.InstantiatePrefab(_craftingView.SlotPrefab, _craftingView.SlotsGrid);
-
-        if (newSlot.TryGetComponent<CraftingSlot>(out CraftingSlot craftingSlot))
-        {
-            craftingSlot.CraftData = craftData;
-            _slots.Add(craftingSlot);
-        }
+        var newSlot = _diContainer.InstantiatePrefabForComponent<CraftingSlot>
+            (_craftingView.SlotPrefab, _craftingView.SlotsGrid);
+        newSlot.CraftData = craftData;
+        _slots.Add(newSlot);
     }
 }
