@@ -47,7 +47,7 @@ public class CraftingView : View
     {
         while (SystemCanvas.activeInHierarchy)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
             {
                 base.SwitchInterface();
 

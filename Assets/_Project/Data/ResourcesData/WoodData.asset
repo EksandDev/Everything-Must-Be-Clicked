@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Wood
   _description: Nice to burn
-  _icon: {fileID: 5514753345006203070, guid: 2a0181d702c249241be72e20985d6c3c, type: 3}
+  _icon: {fileID: 5514753345006203070, guid: 0c0d052932d292943b2b4c2b9ff63b47, type: 3}
   _id: wood

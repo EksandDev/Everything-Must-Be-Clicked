@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Stone
   _description: An ordinary boring stone
-  _icon: {fileID: 5514753345006203070, guid: 2a0181d702c249241be72e20985d6c3c, type: 3}
+  _icon: {fileID: 5514753345006203070, guid: d9ffe6b00f75b1a4e8a690164ba80f64, type: 3}
   _id: stone
