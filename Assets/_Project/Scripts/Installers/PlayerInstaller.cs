@@ -12,5 +12,6 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<PlayerStats>().AsSingle();
         Container.Bind<FirstPersonController>().FromInstance(_controller).AsSingle();
         Container.Bind<Message>().FromInstance(_message).AsSingle();
+        Container.Bind<IInitializable>().To<DamageUpgrade>().AsSingle();
     }
 }

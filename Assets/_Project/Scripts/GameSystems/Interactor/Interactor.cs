@@ -40,7 +40,10 @@ public class Interactor : MonoBehaviour
         }
 
         else
+        {
             _showTextInteractor.TryVanishText();
+            _damageInteractor.TrySetActive(false);
+        }
     }
 
     private void Awake()

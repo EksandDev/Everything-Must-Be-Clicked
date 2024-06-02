@@ -25,18 +25,7 @@ public class InventoryView : View
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
-        {
             SwitchInterface();
-
-            //bool inventoryIsActive = _inventoryCanvas.activeInHierarchy;
-            //_inventoryCanvas.SetActive(!inventoryIsActive);
-            //_interactor.IsActive = inventoryIsActive;
-            //_controller.playerCanMove = inventoryIsActive;
-            //_controller.cameraCanMove = inventoryIsActive;
-            //_controller.enableHeadBob = inventoryIsActive;
-            //Cursor.visible = !inventoryIsActive;
-            //Cursor.lockState = inventoryIsActive ? CursorLockMode.Locked : CursorLockMode.None;
-        }
     }
 
     private void Awake()

@@ -9,9 +9,11 @@ public class ClickableObject : MonoBehaviour, IDamageable, INameable
 
     private InventoryModel _inventory;
     private HitEffectObjectPool _hitEffectObjectPool;
+    private int _maxHealth;
     private int _health;
 
     public string Name => _data.Name;
+    public int MaxHealth => _maxHealth;
     public int Health
     {
         get => _health;
@@ -27,6 +29,7 @@ public class ClickableObject : MonoBehaviour, IDamageable, INameable
         }
     }
 
+
     #region Zenject init
     [Inject]
     private void Inititalize(InventoryModel inventory, HitEffectObjectPool hitEffectObjectPool)
@@ -39,6 +42,7 @@ public class ClickableObject : MonoBehaviour, IDamageable, INameable
     private void Start()
     {
         _health = _data.MaxHealth;
+        _maxHealth = _data.MaxHealth;
     }
 
     private void Death()

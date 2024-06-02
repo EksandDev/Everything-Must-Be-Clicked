@@ -7,6 +7,8 @@ public class InventoryModel
     private InventoryView _inventoryView;
     private List<InventorySlot> _slots = new();
 
+    public IReadOnlyList<InventorySlot> Slots => _slots;
+
     #region Zenject init
     [Inject]
     private void Initialize(InventoryView inventoryView)
@@ -40,56 +42,69 @@ public class InventoryModel
         if (!GetFullness())
             return false;
 
-        else
-        {
-            List<InventorySlot> slotsWithItemsToRemove = new();
+        List<InventorySlot> slotsWithItemsToRemove = new();
 
-            foreach (var slot in _slots)
+        if (!TryGetItems(dataAndTheirCountToRemove, out slotsWithItemsToRemove))
+            return false;
+
+        if (slotsWithItemsToRemove.Count == dataAndTheirCountToRemove.Length)
+        {
+            List<InventorySlot> slotsToDestroy = new();
+
+            foreach (var slot in slotsWithItemsToRemove)
             {
                 foreach (var item in dataAndTheirCountToRemove)
                 {
-                    if (slot.ItemData.ID != item.Data.ID || slot.ItemsCount < item.Count)
+                    if (slot.ItemData.ID != item.Data.ID)
                         continue;
 
-                    slotsWithItemsToRemove.Add(slot);
+                    slot.ItemsCount -= item.Count;
+
+                    if (slot.ItemsCount <= 0)
+                        slotsToDestroy.Add(slot);
+
                     break;
                 }
             }
 
-            if (slotsWithItemsToRemove.Count == dataAndTheirCountToRemove.Length)
+            if (slotsToDestroy.Count > 0)
             {
-                List<InventorySlot> slotsToDestroy = new();
-
-                foreach (var slot in slotsWithItemsToRemove)
+                foreach (var slot in slotsToDestroy)
                 {
-                    foreach (var item in dataAndTheirCountToRemove)
-                    {
-                        if (slot.ItemData.ID != item.Data.ID)
-                            continue;
-
-                        slot.ItemsCount -= item.Count;
-
-                        if (slot.ItemsCount <= 0)
-                            slotsToDestroy.Add(slot);
-
-                        break;
-                    }
+                    _slots.Remove(slot);
+                    Object.Destroy(slot.gameObject);
                 }
-
-                if (slotsToDestroy.Count > 0)
-                {
-                    foreach (var slot in slotsToDestroy)
-                    {
-                        _slots.Remove(slot);
-                        Object.Destroy(slot.gameObject);
-                    }
-                }
-
-                return true;
             }
+
+            return true;
         }
 
         return false;
+    }
+
+    public bool TryGetItems(DataAndCount[] dataAndTheirCountToGet, out List<InventorySlot> slotsWithItems)
+    {
+        if (!GetFullness())
+        {
+            slotsWithItems = null;
+            return false;
+        }
+
+        slotsWithItems = new();
+
+        foreach (var slot in _slots)
+        {
+            foreach (var item in dataAndTheirCountToGet)
+            {
+                if (slot.ItemData.ID != item.Data.ID || slot.ItemsCount < item.Count)
+                    continue;
+
+                slotsWithItems.Add(slot);
+                break;
+            }
+        }
+
+        return true;
     }
 
     public bool GetFullness()

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8211585774019358152}
   - component: {fileID: 5432434142872816055}
   - component: {fileID: 5603201292610148606}
-  - component: {fileID: 3399820791256026204}
+  - component: {fileID: -2409347613955261632}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -194,7 +194,7 @@ MonoBehaviour:
   joint: {fileID: 1684939549593291339}
   bobSpeed: 10
   bobAmount: {x: 0, y: 0.1, z: 0}
---- !u!114 &3399820791256026204
+--- !u!114 &-2409347613955261632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

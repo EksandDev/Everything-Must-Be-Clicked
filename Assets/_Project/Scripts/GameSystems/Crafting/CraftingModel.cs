@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
 using Zenject;
 
 public class CraftingModel
 {
+    public event Action<DamageBoostData> ItemCrafted;
+
     private InventoryModel _inventory;
     private CraftingView _craftingView;
     private Message _message;
@@ -44,6 +46,7 @@ public class CraftingModel
         {
             _inventory.ReceiveItem(craftData.ResultItemData, count);
             _message.Send($"You just crafted: {craftData.ResultItemData.Name}");
+            ItemCrafted?.Invoke(craftData.ResultItemData);
             return true;
         }
     }
@@ -51,7 +54,7 @@ public class CraftingModel
     public void DeleteAllSlots()
     {
         foreach (var slot in _slots)
-            Object.Destroy(slot.gameObject);
+            UnityEngine.Object.Destroy(slot.gameObject);
 
         _slots.Clear();
     }

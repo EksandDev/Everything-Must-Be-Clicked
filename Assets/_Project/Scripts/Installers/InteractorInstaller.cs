@@ -5,6 +5,7 @@ public class InteractorInstaller : MonoInstaller
 {
     [SerializeField] private Interactor _interactor;
     [SerializeField] private TargetNameText _targetNameText;
+    [SerializeField] private TargetHealthSlider _targetHealthSlider;
 
     public override void InstallBindings()
     {
@@ -13,5 +14,6 @@ public class InteractorInstaller : MonoInstaller
         Container.Bind<ShowTextInteractor>().AsSingle();
         Container.Bind<CraftingInteractor>().AsSingle();
         Container.Bind<TargetNameText>().FromInstance(_targetNameText).AsSingle();
+        Container.Bind<TargetHealthSlider>().FromInstance(_targetHealthSlider).AsSingle();
     }
 }

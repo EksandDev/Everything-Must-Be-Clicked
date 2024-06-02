@@ -1,8 +1,7 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class InventorySlot : Slot, IPointerEnterHandler, IPointerExitHandler
+public class InventorySlot : Slot
 {
     [SerializeField] private TMP_Text _itemNameText;
     [SerializeField] private TMP_Text _itemDescriptionText;
@@ -33,14 +32,6 @@ public class InventorySlot : Slot, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-    }
-
     private void Start()
     {
         GameObject icon = Instantiate(ItemData.Icon, transform);
@@ -53,5 +44,4 @@ public class InventorySlot : Slot, IPointerEnterHandler, IPointerExitHandler
         _itemDescriptionText.text = ItemData.Description;
         _itemsCountText.text = ItemsCount.ToString();
     }
-
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "ItemData", menuName = "Data/New ItemData")]
-public class DamageBoostData : ScriptableObject, IStorageable
+public class DamageBoostData : ScriptableObject, IDamageBoost
 {
     [SerializeField] private string _name;
     [SerializeField] private string _description;
